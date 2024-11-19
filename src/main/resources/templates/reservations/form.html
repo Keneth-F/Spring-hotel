@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservation-Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <header th:insert="~{fragments/layout.html :: sidebar}"> </header>
+  <div class="w-full md:w-[calc(100%-256px)] md:ml-64 bg-gray-50 min-h-screen transition-all main">
+    <div th:replace="~{fragments/layout.html :: navbar}"></div <div
+      class="max-w-xl mx-auto p-6 bg-white shadow-md rounded-lg">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-800">Reservation Form</h2>
+    <form class="space-y-4">
+      <!-- Client -->
+      <div>
+        <label for="client" class="block text-sm font-medium text-gray-700">Client</label>
+        <select id="client" name="client"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+          <option value="client1">Client 1</option>
+          <option value="client2">Client 2</option>
+          <option value="client3">Client 3</option>
+        </select>
+      </div>
+
+      <!-- Room -->
+      <div>
+        <label for="room" class="block text-sm font-medium text-gray-700">Room</label>
+        <select id="room" name="room"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+          <option value="room1">Room 1</option>
+          <option value="room2">Room 2</option>
+          <option value="room3">Room 3</option>
+        </select>
+      </div>
+
+      <!-- Start Date -->
+      <div>
+        <label for="startDate" class="block text-sm font-medium text-gray-700">Start Date</label>
+        <input type="datetime-local" id="startDate" name="startDate"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
+      </div>
+
+      <!-- End Date -->
+      <div>
+        <label for="endDate" class="block text-sm font-medium text-gray-700">End Date</label>
+        <input type="datetime-local" id="endDate" name="endDate"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
+      </div>
+
+      <!-- Reservation Status -->
+      <div>
+        <label for="status" class="block text-sm font-medium text-gray-700">Reservation Status</label>
+        <select id="status" name="status"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+          <option value="ACTIVE">Active</option>
+          <option value="CANCELLED">Cancelled</option>
+          <option value="COMPLETED">Completed</option>
+        </select>
+      </div>
+
+      <!-- Submit Button -->
+      <div>
+        <button type="submit"
+          class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  </div>
+  </main>
+</body>
+
+</html>
