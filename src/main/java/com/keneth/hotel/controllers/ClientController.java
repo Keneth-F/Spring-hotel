@@ -1,14 +1,10 @@
 package com.keneth.hotel.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,22 +24,24 @@ public class ClientController {
   public ClientController(ClientService clientService) {
     this.clientService = clientService;
   }
+
   @GetMapping
   public String findAll(Model model) {
     model.addAttribute("clients", clientService.findAll());
-    model.addAttribute("client", new Client());//TODO DTO
+    model.addAttribute("client", new Client());// TODO DTO
     return "clients/index";
   }
 
   @GetMapping("/add")
   public String create(Model model) {
-    model.addAttribute("client", new Client());//TODO DTO
+    model.addAttribute("client", new Client());// TODO DTO
     return "clients/form";
   }
+
   @PostMapping("/add")
-  public String create(@Valid @ModelAttribute Client client,  BindingResult result, Model model) {
+  public String create(@Valid @ModelAttribute Client client, BindingResult result, Model model) {
     clientService.save(client);
-    return "redirect:/clients";
+    return "redirect:/client";
   }
 
   @GetMapping("/delete/{id}")

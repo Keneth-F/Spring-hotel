@@ -21,7 +21,9 @@ public class Client {
   private String email;
 
   private String phoneNumber;
-  public Client() {}
+
+  public Client() {
+  }
 
   public Client(Long id, String firstName, String lastName, String email, String phoneNumber) {
     this.id = id;
@@ -29,6 +31,14 @@ public class Client {
     this.lastName = lastName;
     this.email = email;
     this.phoneNumber = phoneNumber;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getFirstName() {

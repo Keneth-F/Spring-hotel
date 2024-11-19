@@ -49,29 +49,31 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr th:each="client : ${clients}">
                 <td class="py-2 px-4 border-b border-b-gray-50">
                   <div class="flex items-center">
                     <!-- <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded object-cover block"> -->
-                    <span class="text-[13px] font-medium text-gray-400 truncate">Keneth FG</a>
+                    <span class="text-[13px] font-medium text-gray-400 truncate" th:text="${client.firstName}"></a>
                   </div>
                 </td>
                 <td class="py-2 px-4 border-b border-b-gray-50">
-                  <span class="text-[13px] font-medium text-gray-400">keneth@email.com</span>
+                  <span class="text-[13px] font-medium text-gray-400" th:text="${client.email}"></span>
                 </td>
                 <td class="py-2 px-4 border-b border-b-gray-50">
-                  <span class="text-[13px] font-medium text-gray-400">72737475</span>
+                  <span class="text-[13px] font-medium text-gray-400" th:text="${client.phoneNumber}"></span>
                 </td>
                 <td class="py-2 px-4 border-b border-b-gray-50">
-                  <button
+                  <a th:href="@{'/client/edit/' + ${client.getId()}}"
                     class="text-sm font-medium text-emerald-500 py-2 px-4 hover:text-gray-600 bg-emerald-500/10 m-1">
                     editar
-                  </button>
-                  <button class="text-sm font-medium text-rose-500 py-2 px-4 hover:text-gray-600 bg-rose-500/10 m-1">
+                  </a>
+                  <a th:href="@{'/client/delete/' + ${client.getId()}}"
+                    class="text-sm font-medium text-rose-500 py-2 px-4 hover:text-gray-600 bg-rose-500/10 m-1">
                     eliminar
-                  </button>
+                  </a>
                 </td>
               </tr>
+
             </tbody>
           </table>
         </div>

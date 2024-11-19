@@ -15,100 +15,86 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "reservations")
 public class Reservation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id", nullable = false)
-    private Client client;
+  @ManyToOne
+  @JoinColumn(name = "client_id", nullable = false)
+  private Client client;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id", nullable = false)
-    private Room room;
+  @ManyToOne
+  @JoinColumn(name = "room_id", nullable = false)
+  private Room room;
 
-    private LocalDateTime startDate;
+  private LocalDateTime startDate;
 
-    private LocalDateTime endDate;
+  private LocalDateTime endDate;
 
-    @Enumerated(EnumType.STRING)
-    private ReservationStatus status = ReservationStatus.ACTIVE;
+  @Enumerated(EnumType.STRING)
+  private ReservationStatus status = ReservationStatus.ACTIVE;
 
+  public Reservation(Long id, Client client, Room room, LocalDateTime startDate, LocalDateTime endDate,
+      ReservationStatus status) {
+    this.id = id;
+    this.client = client;
+    this.room = room;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.status = status;
+  }
 
-    public Reservation(Long id, Client client, Room room, LocalDateTime startDate, LocalDateTime endDate,
-        ReservationStatus status) {
-      this.id = id;
-      this.client = client;
-      this.room = room;
-      this.startDate = startDate;
-      this.endDate = endDate;
-      this.status = status;
-    }
+  public Long getId() {
+    return id;
+  }
 
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public Long getId() {
-      return id;
-    }
+  public Client getClient() {
+    return client;
+  }
 
+  public void setClient(Client client) {
+    this.client = client;
+  }
 
-    public void setId(Long id) {
-      this.id = id;
-    }
+  public Room getRoom() {
+    return room;
+  }
 
+  public void setRoom(Room room) {
+    this.room = room;
+  }
 
-    public Client getClient() {
-      return client;
-    }
+  public LocalDateTime getStartDate() {
+    return startDate;
+  }
 
+  public void setStartDate(LocalDateTime startDate) {
+    this.startDate = startDate;
+  }
 
-    public void setClient(Client client) {
-      this.client = client;
-    }
+  public LocalDateTime getEndDate() {
+    return endDate;
+  }
 
+  public void setEndDate(LocalDateTime endDate) {
+    this.endDate = endDate;
+  }
 
-    public Room getRoom() {
-      return room;
-    }
+  public ReservationStatus getStatus() {
+    return status;
+  }
 
+  public void setStatus(ReservationStatus status) {
+    this.status = status;
+  }
 
-    public void setRoom(Room room) {
-      this.room = room;
-    }
-
-
-    public LocalDateTime getStartDate() {
-      return startDate;
-    }
-
-
-    public void setStartDate(LocalDateTime startDate) {
-      this.startDate = startDate;
-    }
-
-
-    public LocalDateTime getEndDate() {
-      return endDate;
-    }
-
-
-    public void setEndDate(LocalDateTime endDate) {
-      this.endDate = endDate;
-    }
-
-
-    public ReservationStatus getStatus() {
-      return status;
-    }
-
-
-    public void setStatus(ReservationStatus status) {
-      this.status = status;
-    }
-
-
-    public enum ReservationStatus {
-        ACTIVE,
-        CANCELLED,
-        COMPLETED
-    }
+  public enum ReservationStatus {
+    ACTIVE,
+    CANCELLED,
+    COMPLETED
+  }
 }
