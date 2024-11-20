@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,11 @@ public class ClientController {
 
   @PostMapping("/add")
   public String create(@Valid @ModelAttribute Client client, BindingResult result, Model model) {
+    if (result.hasErrors() || true) {
+      ObjectError error = new ObjectError("globalError", "error");
+        result.addError(error);
+			return "clients/form";
+		}
     clientService.save(client);
     return "redirect:/client";
   }
