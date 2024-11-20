@@ -21,28 +21,30 @@ public class ReservationController {
   public ReservationController(ReservationService reservationService) {
     this.reservationService = reservationService;
   }
+
   @GetMapping
   public String findAll(Model model) {
     model.addAttribute("reservations", reservationService.findAll());
-    model.addAttribute("reservation", new ReservationDTO());//TODO DTO
+    model.addAttribute("reservation", new ReservationDTO());// TODO DTO
     return "reservations/index";
   }
 
   @GetMapping("/add")
   public String create(Model model) {
-    model.addAttribute("reservation", new ReservationDTO());//TODO DTO
+    model.addAttribute("reservation", new ReservationDTO());// TODO DTO
     return "reservations/form";
   }
+
   @PostMapping("/add")
   public String create(@ModelAttribute ReservationDTO reservation) {
     reservationService.save(reservation);
-    return "redirect:/reservations";
+    return "redirect:/reservation";
   }
 
   @GetMapping("/delete/{id}")
   public String delete(@PathVariable Long id) {
     reservationService.delete(id);
-    return "redirect:/reservations";
+    return "redirect:/reservation";
   }
 
   @GetMapping("/edit/{id}")
@@ -50,7 +52,7 @@ public class ReservationController {
     model.addAttribute("reservations", reservationService.findAll());
     // Optional<ReservationDTO> reservation = reservationService.findById(id);
     // if (reservation.isPresent()) {
-    //   model.addAttribute("reservation", reservation.get());
+    // model.addAttribute("reservation", reservation.get());
     // }
     return "reservations/form";
   }

@@ -17,13 +17,12 @@
     <div class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg m-6">
       <h2 class="text-2xl font-semibold mb-4 text-gray-800">User Information</h2>
       <form class="space-y-4" th:action="@{/client/add}" th:object="${client}" method="post">
+        <input type="hidden" th:field="*{id}">
         <!-- First Name -->
         <div>
           <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
           <input type="text" th:field="*{firstName}" placeholder="Enter your first name"
             class="mt-1 block w-full h-10 text-lg p-2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
-          <p>aqui</p>
-
           <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</div>
         </div>
 
@@ -49,7 +48,7 @@
         </div>
         <div th:if="${#fields.hasErrors('global')}">
           <h3>Global errors:</h3>
-          <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error" />
+          <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error"></p>
         </div>
         <!-- Submit Button -->
         <div>

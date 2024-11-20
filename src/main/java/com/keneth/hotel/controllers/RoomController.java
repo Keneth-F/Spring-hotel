@@ -23,22 +23,23 @@ public class RoomController {
     this.roomService = roomService;
   }
 
-   @GetMapping
+  @GetMapping
   public String findAll(Model model) {
     model.addAttribute("rooms", roomService.findAll());
-    model.addAttribute("room", new Room());//TODO DTO
+    model.addAttribute("room", new Room());// TODO DTO
     return "rooms/index";
   }
 
   @GetMapping("/add")
   public String create(Model model) {
-    model.addAttribute("room", new Client());//TODO DTO
+    model.addAttribute("room", new Room());// TODO DTO
     return "rooms/form";
   }
+
   @PostMapping("/add")
   public String create(@ModelAttribute Room room) {
     roomService.save(room);
-    return "redirect:/rooms";
+    return "redirect:/room";
   }
 
   @GetMapping("/delete/{id}")

@@ -42,10 +42,9 @@ public class ClientController {
   @PostMapping("/add")
   public String create(@Valid @ModelAttribute Client client, BindingResult result, Model model) {
     if (result.hasErrors() || true) {
-      ObjectError error = new ObjectError("globalError", "error");
-        result.addError(error);
-			return "clients/form";
-		}
+      result.rejectValue("firstName", "client.firstName", "test error");
+      return "clients/form";
+    }
     clientService.save(client);
     return "redirect:/client";
   }
@@ -53,7 +52,7 @@ public class ClientController {
   @GetMapping("/delete/{id}")
   public String delete(@PathVariable Long id) {
     clientService.delete(id);
-    return "redirect:/clients";
+    return "redirect:/client";
   }
 
   @GetMapping("/edit/{id}")

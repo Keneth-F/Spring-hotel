@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reservation-Form</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 
 <body>
@@ -14,47 +15,47 @@
     <div th:replace="~{fragments/layout.html :: navbar}"></div>
     <div class="max-w-xl mx-auto p-6 bg-white shadow-md rounded-lg">
       <h2 class="text-2xl font-semibold mb-4 text-gray-800">Reservation Form</h2>
-      <form class="space-y-4">
+      <form class="space-y-4" th:action="@{/reservation/add}" th:object="${reservation}" method="post">
         <!-- Client -->
         <div>
           <label for="client" class="block text-sm font-medium text-gray-700">Client</label>
-          <select id="client" name="client"
+          <select th:field="*{clientId}"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-            <option value="client1">Client 1</option>
-            <option value="client2">Client 2</option>
-            <option value="client3">Client 3</option>
+            <option value="1">Client 1</option>
+            <option value="2">Client 2</option>
+            <option value="3">Client 3</option>
           </select>
         </div>
 
         <!-- Room -->
         <div>
           <label for="room" class="block text-sm font-medium text-gray-700">Room</label>
-          <select id="room" name="room"
+          <select th:field="*{roomId}"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-            <option value="room1">Room 1</option>
-            <option value="room2">Room 2</option>
-            <option value="room3">Room 3</option>
+            <option value="1">Room 1</option>
+            <option value="2">Room 2</option>
+            <option value="3">Room 3</option>
           </select>
         </div>
 
         <!-- Start Date -->
         <div>
           <label for="startDate" class="block text-sm font-medium text-gray-700">Start Date</label>
-          <input type="datetime-local" id="startDate" name="startDate"
+          <input type="datetime-local" th:field="*{startDate}"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
         </div>
 
         <!-- End Date -->
         <div>
           <label for="endDate" class="block text-sm font-medium text-gray-700">End Date</label>
-          <input type="datetime-local" id="endDate" name="endDate"
+          <input type="datetime-local" th:field="*{endDate}"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
         </div>
 
         <!-- Reservation Status -->
         <div>
           <label for="status" class="block text-sm font-medium text-gray-700">Reservation Status</label>
-          <select id="status" name="status"
+          <select th:field="*{status}"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
             <option value="ACTIVE">Active</option>
             <option value="CANCELLED">Cancelled</option>

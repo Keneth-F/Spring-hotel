@@ -57,33 +57,37 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr th:each="reservation : ${reservations}">
                 <td class="py-2 px-4 border-b border-b-gray-50">
                   <div class="flex items-center">
                     <!-- <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded object-cover block"> -->
-                    <span class="text-[13px] font-medium text-gray-400 truncate">1</a>
+                    <span class="text-[13px] font-medium text-gray-400 truncate" th:text="${reservation.id}"></a>
                   </div>
                 </td>
                 <td class="py-2 px-4 border-b border-b-gray-50">
-                  <span class="text-[13px] font-medium text-gray-400">Keneth FG</span>
+                  <span class="text-[13px] font-medium text-gray-400" th:text="${reservation.id}"></span>
                 </td>
                 <td class="py-2 px-4 border-b border-b-gray-50">
-                  <span class="text-[13px] font-medium text-gray-400">1</span>
+                  <span class="text-[13px] font-medium text-gray-400" th:text="${reservation.client.id}"></span>
                 </td>
                 <td class="py-2 px-4 border-b border-b-gray-50">
-                  <span class="text-[13px] font-medium text-gray-400">12/11/2024-12/12/2024</span>
+                  <span class="text-[13px] font-medium text-gray-400" th:text="${reservation.room.id}"></span>
                 </td>
                 <td class="py-2 px-4 border-b border-b-gray-50">
-                  <span class="text-[13px] font-medium text-gray-400">Activo</span>
+                  <span class="text-[13px] font-medium text-gray-400" th:text="${reservation.startDate}"></span>
                 </td>
                 <td class="py-2 px-4 border-b border-b-gray-50">
-                  <button
+                  <span class="text-[13px] font-medium text-gray-400" th:text="${reservation.status}"></span>
+                </td>
+                <td class="py-2 px-4 border-b border-b-gray-50">
+                  <a th:href="@{'/reservation/edit/' + ${reservation.getId()}}"
                     class="text-sm font-medium text-emerald-500 py-2 px-4 hover:text-gray-600 bg-emerald-500/10 m-1">
                     editar
-                  </button>
-                  <button class="text-sm font-medium text-rose-500 py-2 px-4 hover:text-gray-600 bg-rose-500/10 m-1">
+                  </a>
+                  <a th:href="@{'/reservation/delete/' + ${reservation.getId()}}"
+                    class="text-sm font-medium text-rose-500 py-2 px-4 hover:text-gray-600 bg-rose-500/10 m-1">
                     eliminar
-                  </button>
+                  </a>
                 </td>
               </tr>
             </tbody>
