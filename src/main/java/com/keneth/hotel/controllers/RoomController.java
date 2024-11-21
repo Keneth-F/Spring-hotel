@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.keneth.hotel.models.Client;
 import com.keneth.hotel.models.Room;
 import com.keneth.hotel.services.RoomService;
 
@@ -26,13 +25,11 @@ public class RoomController {
   @GetMapping
   public String findAll(Model model) {
     model.addAttribute("rooms", roomService.findAll());
-    model.addAttribute("room", new Room());// TODO DTO
     return "rooms/index";
   }
 
   @GetMapping("/add")
   public String create(Model model) {
-    model.addAttribute("room", new Room());// TODO DTO
     return "rooms/form";
   }
 

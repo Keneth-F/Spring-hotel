@@ -21,7 +21,7 @@ public class ReservationService {
   }
 
   public Reservation save(ReservationDTO reservation){
-    return null;//reservationRepo.save(reservation);
+    return reservationRepo.save(reservation.toModel());
   }
 
   public Optional<Reservation> findById(Long id){

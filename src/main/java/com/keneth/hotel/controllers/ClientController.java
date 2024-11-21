@@ -2,15 +2,17 @@ package com.keneth.hotel.controllers;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.keneth.hotel.models.Client;
 import com.keneth.hotel.services.ClientService;
@@ -27,9 +29,18 @@ public class ClientController {
   }
 
   @GetMapping
-  public String findAll(Model model) {
-    model.addAttribute("clients", clientService.findAll());
-    model.addAttribute("client", new Client());// TODO DTO
+  public String findAll(@RequestParam(required = false, defaultValue = "") String nombre,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size,
+        Model model) {
+           Pageable pageable = PageRequest.of(page, size);
+           if (nombre.isEmpty()) {
+             model.addAttribute("clients",clientService.findAll(pageable));
+        } else {
+          model.addAttribute("clients",clientService.findByFirstName(nombre, pageable));
+        }
+   
+    model.addAttribute("client", new Client());
     return "clients/index";
   }
 
@@ -57,7 +68,7 @@ public class ClientController {
 
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable Long id, Model model) {
-    model.addAttribute("clients", clientService.findAll());
+    model.addAttribute("clients", clientService.findAll(PageRequest.of(0, 10)));
     Optional<Client> client = clientService.findById(id);
     if (client.isPresent()) {
       model.addAttribute("client", client.get());

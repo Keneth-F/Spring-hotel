@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.keneth.hotel.models.Reservation;
 @Repository
 public interface ReservationRepo extends JpaRepository<Reservation,Long>{
-  //TODO status
 }

@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reservation-Form</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <div th:replace="~{fragments/layout.html :: imports}"></div>
+
 </head>
 
 <body>
@@ -21,9 +21,7 @@
           <label for="client" class="block text-sm font-medium text-gray-700">Client</label>
           <select th:field="*{clientId}"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-            <option value="1">Client 1</option>
-            <option value="2">Client 2</option>
-            <option value="3">Client 3</option>
+            <option th:each="client : ${clients}" th:value="${client.id}" th:text="${client.firstName}"></option>
           </select>
         </div>
 
@@ -32,9 +30,7 @@
           <label for="room" class="block text-sm font-medium text-gray-700">Room</label>
           <select th:field="*{roomId}"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-            <option value="1">Room 1</option>
-            <option value="2">Room 2</option>
-            <option value="3">Room 3</option>
+            <option th:each="room : ${rooms}" th:value="${room.roomNumber}" th:text="${room.id}"></option>
           </select>
         </div>
 
@@ -66,7 +62,7 @@
         <!-- Submit Button -->
         <div>
           <button type="submit"
-            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm">
+            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-white !bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm">
             Submit
           </button>
         </div>

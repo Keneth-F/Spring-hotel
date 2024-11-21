@@ -30,5 +30,9 @@ If you manually switch to a different parent and actually want the inheritance, 
 
 
 
-TODO: dto to model
+TODO: Errors
+TODO: UsesCases
+TODO: use specification for available in period
+TODO: Automatic status reservation
+TODO: Capture unique constraint room
 

@@ -1,6 +1,8 @@
 package com.keneth.hotel.models;
 
+
 import java.time.LocalDateTime;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -26,13 +28,14 @@ public class Reservation {
   @ManyToOne
   @JoinColumn(name = "room_id", nullable = false)
   private Room room;
-
   private LocalDateTime startDate;
-
   private LocalDateTime endDate;
 
   @Enumerated(EnumType.STRING)
   private ReservationStatus status = ReservationStatus.ACTIVE;
+
+  public Reservation() {
+  }
 
   public Reservation(Long id, Client client, Room room, LocalDateTime startDate, LocalDateTime endDate,
       ReservationStatus status) {
@@ -42,6 +45,10 @@ public class Reservation {
     this.startDate = startDate;
     this.endDate = endDate;
     this.status = status;
+  }
+
+  public ReservationDTO toDTO() {
+    return new ReservationDTO(id, client.getId(), room.getId(), startDate, endDate, status);
   }
 
   public Long getId() {

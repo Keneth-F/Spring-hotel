@@ -2,13 +2,17 @@ package com.keneth.hotel.models;
 
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.keneth.hotel.models.Reservation.ReservationStatus;
 
 public class ReservationDTO {
   private Long id;
   private Long clientId;
   private Long roomId;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
   private LocalDateTime startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
   private LocalDateTime endDate;
   private ReservationStatus status;
 
@@ -71,5 +75,14 @@ public class ReservationDTO {
   }
 
   public ReservationDTO() {
+  }
+
+  public final Reservation toModel() {
+    return new Reservation(null,
+        new Client(this.clientId, null, null, null, null),
+        new Room(this.roomId, null, null, null, null),
+        startDate,
+        endDate,
+        status);
   }
 }

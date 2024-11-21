@@ -3,6 +3,8 @@ package com.keneth.hotel.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.keneth.hotel.data.ClientRepo;
@@ -15,6 +17,9 @@ public class ClientService {
     this.clientRepo=clientRepo;
   }
 
+  public Page<Client> findAll(Pageable pageable){
+    return clientRepo.findAll(pageable);
+  }
   public List<Client> findAll(){
     return clientRepo.findAll();
   }
@@ -26,7 +31,9 @@ public class ClientService {
   public Optional<Client> findById(Long id){
     return clientRepo.findById(id);
   }
-
+  public Page<Client> findByFirstName(String nombre, Pageable pageable) {
+    return clientRepo.findByFirstNameContaining(nombre, pageable);
+}
   public void delete(Long id){
     clientRepo.deleteById(id);
   }
