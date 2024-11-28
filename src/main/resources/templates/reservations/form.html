@@ -16,6 +16,7 @@
     <div class="max-w-xl mx-auto p-6 bg-white shadow-md rounded-lg">
       <h2 class="text-2xl font-semibold mb-4 text-gray-800">Reservation Form</h2>
       <form class="space-y-4" th:action="@{/reservation/add}" th:object="${reservation}" method="post">
+        <input type="hidden" th:field="*{id}">
         <!-- Client -->
         <div>
           <label for="client" class="block text-sm font-medium text-gray-700">Client</label>
@@ -23,6 +24,7 @@
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
             <option th:each="client : ${clients}" th:value="${client.id}" th:text="${client.firstName}"></option>
           </select>
+          <div th:if="${#fields.hasErrors('clientId')}" th:errors="*{clientId}">clientId Error</div>
         </div>
 
         <!-- Room -->
@@ -30,8 +32,9 @@
           <label for="room" class="block text-sm font-medium text-gray-700">Room</label>
           <select th:field="*{roomId}"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-            <option th:each="room : ${rooms}" th:value="${room.roomNumber}" th:text="${room.id}"></option>
+            <option th:each="room : ${rooms}" th:value="${room.id}" th:text="${room.roomNumber}"></option>
           </select>
+          <div th:if="${#fields.hasErrors('roomId')}" th:errors="*{roomId}">roomId Error</div>
         </div>
 
         <!-- Start Date -->
@@ -39,6 +42,7 @@
           <label for="startDate" class="block text-sm font-medium text-gray-700">Start Date</label>
           <input type="datetime-local" th:field="*{startDate}"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
+          <div th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">startDate Error</div>
         </div>
 
         <!-- End Date -->
@@ -46,6 +50,7 @@
           <label for="endDate" class="block text-sm font-medium text-gray-700">End Date</label>
           <input type="datetime-local" th:field="*{endDate}"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
+          <div th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">endDate Error</div>
         </div>
 
         <!-- Reservation Status -->
@@ -57,19 +62,23 @@
             <option value="CANCELLED">Cancelled</option>
             <option value="COMPLETED">Completed</option>
           </select>
+          <div th:if="${#fields.hasErrors('status')}" th:errors="*{status}">status Error</div>
         </div>
-
+        <div th:if="${#fields.hasErrors('global')}">
+          <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error"></p>
+        </div>
         <!-- Submit Button -->
         <div>
           <button type="submit"
             class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-white !bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm">
-            Submit
+            Guardar
           </button>
         </div>
       </form>
     </div>
   </div>
   </main>
+  <script src="/dist/js/script.js"></script>
 </body>
 
 </html>

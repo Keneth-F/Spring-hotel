@@ -18,9 +18,9 @@
           <div class="font-medium">Clientes</div>
           <a href="client/add" class="bg-blue-500 text-sm font-medium text-white py-2 px-4 rounded-md">Agregar</a>
         </div>
-        <form action="" class="flex items-center mb-4">
+        <form class="flex items-center mb-4">
           <div class="relative w-full mr-2">
-            <input type="text"
+            <input type="text" name="firstName"
               class="py-2 pr-4 pl-10 bg-gray-50 w-full outline-none border border-gray-100 rounded-md text-sm focus:border-blue-500"
               placeholder="Search...">
             <i class="ri-search-line absolute top-1/2 left-4 -translate-y-1/2 text-gray-400"></i>
@@ -52,7 +52,8 @@
                 <td class="py-2 px-4 border-b border-b-gray-50">
                   <div class="flex items-center">
                     <!-- <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded object-cover block"> -->
-                    <span class="text-[13px] font-medium text-gray-400 truncate" th:text="${client.firstName}"></a>
+                    <span class="text-[13px] font-medium text-gray-400 truncate"
+                      th:text="${client.firstName+' '+client.lastName}"></a>
                   </div>
                 </td>
                 <td class="py-2 px-4 border-b border-b-gray-50">
@@ -76,6 +77,48 @@
             </tbody>
           </table>
         </div>
+        <div class="flex items-center space-x-2">
+          <!-- Botón de Página Anterior -->
+          <a id="prevButton" class="text-blue-500 hover:underline text-sm">
+            Anterior
+          </a>
+
+          <!-- Botón de Página Siguiente -->
+          <a id="nextButton" class="text-green-500 hover:underline text-sm">
+            Siguiente
+          </a>
+
+          <!-- Botón de Reset -->
+          <a id="resetButton" class="text-gray-500 hover:underline text-sm">
+            Reset
+          </a>
+        </div>
+
+        <script>
+          // Obtener parámetros de la URL
+          const params = new URLSearchParams(window.location.search);
+          const page = parseInt(params.get('page')) || 0; // Predeterminado a 0
+          const size = parseInt(params.get('size')) || 10; // Predeterminado a 10
+
+          // Actualizar enlaces dinámicamente
+          const prevButton = document.getElementById('prevButton');
+          const nextButton = document.getElementById('nextButton');
+          const resetButton = document.getElementById('resetButton');
+
+          // Calcula el enlace para la página anterior
+          if (page > 0) {
+            prevButton.href = `?page=${page - 1}&size=${size}`;
+          } else {
+            prevButton.classList.add('text-gray-400', 'pointer-events-none'); // Deshabilitar si es la primera página
+          }
+
+          // Calcula el enlace para la página siguiente
+          nextButton.href = `?page=${page + 1}&size=${size}`;
+
+          // Calcula el enlace para resetear a la primera página
+          resetButton.href = `?page=0&size=${size}`;
+        </script>
+
       </div>
     </div>
   </main>

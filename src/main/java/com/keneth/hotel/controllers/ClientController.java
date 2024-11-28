@@ -29,31 +29,30 @@ public class ClientController {
   }
 
   @GetMapping
-  public String findAll(@RequestParam(required = false, defaultValue = "") String nombre,
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size,
-        Model model) {
-           Pageable pageable = PageRequest.of(page, size);
-           if (nombre.isEmpty()) {
-             model.addAttribute("clients",clientService.findAll(pageable));
-        } else {
-          model.addAttribute("clients",clientService.findByFirstName(nombre, pageable));
-        }
-   
+  public String findAll(@RequestParam(required = false, defaultValue = "") String firstName,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      Model model) {
+    Pageable pageable = PageRequest.of(page, size);
+    if (firstName.isEmpty()) {
+      model.addAttribute("clients", clientService.findAll(pageable));
+    } else {
+      model.addAttribute("clients", clientService.findByFirstName(firstName, pageable));
+    }
+
     model.addAttribute("client", new Client());
     return "clients/index";
   }
 
   @GetMapping("/add")
   public String create(Model model) {
-    model.addAttribute("client", new Client());// TODO DTO
+    model.addAttribute("client", new Client());
     return "clients/form";
   }
 
   @PostMapping("/add")
   public String create(@Valid @ModelAttribute Client client, BindingResult result, Model model) {
-    if (result.hasErrors() || true) {
-      result.rejectValue("firstName", "client.firstName", "test error");
+    if (result.hasErrors()) {
       return "clients/form";
     }
     clientService.save(client);

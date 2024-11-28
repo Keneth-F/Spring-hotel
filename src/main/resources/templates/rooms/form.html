@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Room-Form</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <div th:replace="~{fragments/layout.html :: imports}"></div>
+
 </head>
 
 <body>
@@ -22,6 +22,7 @@
           <label for="roomNumber" class="block text-sm font-medium text-gray-700">Room Number</label>
           <input type="text" th:field="*{roomNumber}" placeholder="Enter room number"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
+          <div th:if="${#fields.hasErrors('roomNumber')}" th:errors="*{roomNumber}">roomNumber Error</div>
         </div>
 
         <!-- Room Type -->
@@ -33,6 +34,7 @@
             <option value="DOUBLE">Double</option>
             <option value="SUITE">Suite</option>
           </select>
+          <div th:if="${#fields.hasErrors('type')}" th:errors="*{type}">type Error</div>
         </div>
 
         <!-- Price -->
@@ -40,6 +42,7 @@
           <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
           <input type="number" th:field="*{price}" placeholder="Enter price" step="0.01"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
+          <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}">price Error</div>
         </div>
 
         <!-- Room Status -->
@@ -48,22 +51,26 @@
           <select th:field="*{status}"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
             <option value="AVAILABLE">Available</option>
-            <option value="BOOKED">Occupied</option>
             <option value="MAINTENANCE">Maintenance</option>
           </select>
+          <div th:if="${#fields.hasErrors('status')}" th:errors="*{status}">status Error</div>
         </div>
-
+        <div th:if="${#fields.hasErrors('global')}">
+          <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error"></p>
+        </div>
         <!-- Submit Button -->
         <div>
           <button type="submit"
             class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-white !bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm">
-            Submit
+            Guardar
           </button>
         </div>
       </form>
     </div>
   </div>
   </main>
+  <script src="/dist/js/script.js"></script>
+
 </body>
 
 </html>

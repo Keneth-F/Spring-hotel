@@ -4,11 +4,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Error</title>
 </head>
 
 <body>
-  error
+  error: algo salio mal :(
+  <button onclick="history.back()">regresar</button>
+  <button onclick=" location.reload()">recargar</button>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    console.log(/*[[${errorMessage}]]*/ 'default');
+    /*]]>*/
+  </script>
 </body>
 
 </html>

@@ -30,9 +30,13 @@ If you manually switch to a different parent and actually want the inheritance, 
 
 
 
-TODO: Errors
 TODO: UsesCases
+TODO: Mejorar search
+TODO: Puede que este alreves las relaciones
+TODO: room "estado administrado" (Managed Entity) de Hibernate.
+TODO: improve delete
+
+
 TODO: use specification for available in period
 TODO: Automatic status reservation
-TODO: Capture unique constraint room
 

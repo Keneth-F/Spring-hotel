@@ -4,11 +4,278 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Reservations</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body::after {
+      background-image: url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: -1;
+      filter: blur(7px);
+    }
+
+    .container {
+      z-index: 10;
+      width: 800px;
+      max-width: 800px;
+      height: 450px;
+      background: black;
+      color: white;
+      display: flex;
+    }
+
+    .content {
+      width: 50%;
+      height: 100%;
+      background: rgb(43, 42, 42);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-y: auto;
+    }
+
+    .content h1 {
+      margin: 40px 0;
+      font-family: sans-serif;
+      font-weight: 800;
+    }
+
+    .content .text {
+      margin-bottom: 20px;
+    }
+
+    .text div {
+      width: 160px;
+      height: 1.5px;
+      background: rgb(76, 77, 75);
+      margin-bottom: 9px;
+    }
+
+    .text h2 {
+      font-family: sans-serif;
+    }
+
+    .text p {
+      color: rgb(240, 26, 97);
+      font-family: sans-serif;
+      font-size: 15px;
+    }
+
+    button {
+      background: rgb(240, 26, 97);
+      padding: 15px 35px;
+      border: none;
+      outline: none;
+      color: white;
+      cursor: pointer;
+      font-family: sans-serif;
+      font-weight: bold;
+      font-size: 16.2px;
+      margin: 10px 0;
+      border-radius: 5px;
+      transition: .3s ease;
+    }
+
+    button:hover {
+      background: rgb(179, 17, 71);
+    }
+
+    .image {
+      width: 50%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    @media (max-width: 600px) {
+      .content {
+        width: 100%;
+      }
+
+      .image {
+        display: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  Inicio
+  <div class="container">
+    <div class="content">
+      <h1>Hotel</h1>
+      <form id="reservationForm">
+        <!-- Start Date -->
+        <div class="text">
+          <label for="startDate" class="block">Fecha Inicio</label>
+          <input type="datetime-local" id="startDate" name="startDate" class="form-control" />
+          <div id="startDateError" class="error" style="display: none;">Start date is required</div>
+        </div>
+
+        <!-- End Date -->
+        <div class="text">
+          <label for="endDate" class="block">Fecha Final</label>
+          <input type="datetime-local" id="endDate" name="endDate" class="form-control" />
+          <div id="endDateError" class="error" style="display: none;">End date is required</div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="button" id="checkReservation" class="submit-btn">Revisar disponibilidad</button>
+      </form>
+
+      <!-- Room availability result -->
+      <div id="roomAvailability" style="display: none;">
+        <h3>Available Rooms</h3>
+        <ul id="roomList"></ul>
+      </div>
+    </div>
+
+    <style>
+      /* Same style as before */
+      .content {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .text {
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-top: 5px;
+      }
+
+      .error {
+        color: red;
+        font-size: 12px;
+        margin-top: 5px;
+      }
+
+      .submit-btn {
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .submit-btn:hover {
+        background-color: #0056b3;
+      }
+
+      #roomAvailability {
+        margin-top: 20px;
+        font-size: 16px;
+      }
+
+      #roomList {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      #roomList li {
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 4px;
+      }
+    </style>
+
+    <script>
+      document.getElementById('checkReservation').addEventListener('click', async () => {
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+
+        if (!startDate || !endDate) {
+          alert('Please select both start and end dates.');
+          return;
+        }
+
+        // Hacer la solicitud fetch con los parámetros en la URL
+        try {
+          const response = await fetch(`/reservation/check?startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to fetch available rooms');
+          }
+
+          const availableRooms = await response.json();
+
+          // Mostrar la lista de habitaciones disponibles
+          const roomList = document.getElementById('roomList');
+          roomList.innerHTML = '';  // Limpiar cualquier habitación existente
+
+          if (availableRooms.length === 0) {
+            roomList.innerHTML = '<li>No rooms available for the selected dates.</li>';
+          } else {
+            availableRooms.forEach(room => {
+              const li = document.createElement('li');
+              li.textContent = `Room Number: ${room.roomNumber} | Type: ${room.type} | Price: $${room.price}`;
+              roomList.appendChild(li);
+            });
+          }
+
+          // Mostrar la sección de disponibilidad
+          document.getElementById('roomAvailability').style.display = 'block';
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Error fetching available rooms. Please try again later.');
+        }
+      });
+
+    </script>
+
+
+    <div class="image"></div>
+  </div>
 </body>
 
 </html>

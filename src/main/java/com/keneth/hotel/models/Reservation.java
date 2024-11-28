@@ -3,6 +3,8 @@ package com.keneth.hotel.models;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -22,11 +24,13 @@ public class Reservation {
   private Long id;
 
   @ManyToOne
+  @OnDelete(action=OnDeleteAction.CASCADE)
   @JoinColumn(name = "client_id", nullable = false)
   private Client client;
 
   @ManyToOne
   @JoinColumn(name = "room_id", nullable = false)
+  @OnDelete(action=OnDeleteAction.CASCADE)
   private Room room;
   private LocalDateTime startDate;
   private LocalDateTime endDate;

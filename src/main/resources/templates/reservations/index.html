@@ -17,7 +17,7 @@
     <div class="p-6">
       <div class="bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-md">
         <div class="flex justify-between mb-4 items-start">
-          <div class="font-medium">Clientes</div>
+          <div class="font-medium">Reservaciones</div>
           <a href="reservation/add" class="bg-blue-500 text-sm font-medium text-white py-2 px-4 rounded-md">Agregar</a>
         </div>
         <form action="" class="flex items-center mb-4">
@@ -69,7 +69,10 @@
                   <span class="text-[13px] font-medium text-gray-400" th:text="${reservation.room.roomNumber}"></span>
                 </td>
                 <td class="py-2 px-4 border-b border-b-gray-50">
-                  <span class="text-[13px] font-medium text-gray-400" th:text="${reservation.startDate}"></span>
+                  <span class="text-[13px] font-medium text-gray-400"
+                    th:text="${#temporals.format(reservation.startDate, 'yyyy-MM-dd HH:mm')}"></span><br>
+                  <span class="text-[13px] font-medium text-gray-400"
+                    th:text="${#temporals.format(reservation.endDate, 'yyyy-MM-dd HH:mm')}"></span>
                 </td>
                 <td class="py-2 px-4 border-b border-b-gray-50">
                   <span class="text-[13px] font-medium text-gray-400" th:text="${reservation.status}"></span>
@@ -88,6 +91,47 @@
             </tbody>
           </table>
         </div>
+        <div class="flex items-center space-x-2">
+          <!-- Botón de Página Anterior -->
+          <a id="prevButton" class="text-blue-500 hover:underline text-sm">
+            Anterior
+          </a>
+
+          <!-- Botón de Página Siguiente -->
+          <a id="nextButton" class="text-green-500 hover:underline text-sm">
+            Siguiente
+          </a>
+
+          <!-- Botón de Reset -->
+          <a id="resetButton" class="text-gray-500 hover:underline text-sm">
+            Reset
+          </a>
+        </div>
+
+        <script>
+          // Obtener parámetros de la URL
+          const params = new URLSearchParams(window.location.search);
+          const page = parseInt(params.get('page')) || 0; // Predeterminado a 0
+          const size = parseInt(params.get('size')) || 10; // Predeterminado a 10
+
+          // Actualizar enlaces dinámicamente
+          const prevButton = document.getElementById('prevButton');
+          const nextButton = document.getElementById('nextButton');
+          const resetButton = document.getElementById('resetButton');
+
+          // Calcula el enlace para la página anterior
+          if (page > 0) {
+            prevButton.href = `?page=${page - 1}&size=${size}`;
+          } else {
+            prevButton.classList.add('text-gray-400', 'pointer-events-none'); // Deshabilitar si es la primera página
+          }
+
+          // Calcula el enlace para la página siguiente
+          nextButton.href = `?page=${page + 1}&size=${size}`;
+
+          // Calcula el enlace para resetear a la primera página
+          resetButton.href = `?page=0&size=${size}`;
+        </script>
       </div>
     </div>
   </main>

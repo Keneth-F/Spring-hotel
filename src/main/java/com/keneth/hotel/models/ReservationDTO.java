@@ -6,14 +6,21 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.keneth.hotel.models.Reservation.ReservationStatus;
 
+import jakarta.validation.constraints.NotNull;
+
 public class ReservationDTO {
   private Long id;
+  @NotNull
   private Long clientId;
+  @NotNull
   private Long roomId;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+  @NotNull
+  @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
   private LocalDateTime startDate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+  @NotNull
+  @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
   private LocalDateTime endDate;
+  @NotNull
   private ReservationStatus status;
 
   public Long getId() {
@@ -78,7 +85,7 @@ public class ReservationDTO {
   }
 
   public final Reservation toModel() {
-    return new Reservation(null,
+    return new Reservation(this.id,
         new Client(this.clientId, null, null, null, null),
         new Room(this.roomId, null, null, null, null),
         startDate,

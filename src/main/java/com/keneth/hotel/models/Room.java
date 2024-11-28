@@ -1,6 +1,5 @@
 package com.keneth.hotel.models;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -17,7 +16,7 @@ public class Room {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column( unique = true, nullable = false)
+  @Column(unique = true, nullable = false)
   private String roomNumber;
 
   @Enumerated(EnumType.STRING)
@@ -27,7 +26,10 @@ public class Room {
 
   @Enumerated(EnumType.STRING)
   private RoomStatus status = RoomStatus.AVAILABLE;
-public Room() {}
+
+  public Room() {
+  }
+
   public Room(Long id, String roomNumber, RoomType type, Double price, RoomStatus status) {
     this.id = id;
     this.roomNumber = roomNumber;

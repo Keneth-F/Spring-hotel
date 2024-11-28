@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "clients")
@@ -12,13 +14,12 @@ public class Client {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
+  @NotEmpty
   private String firstName;
-
+  @NotEmpty
   private String lastName;
-
+  @Email
   private String email;
-
   private String phoneNumber;
 
   public Client() {
